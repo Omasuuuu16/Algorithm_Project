@@ -1,0 +1,20 @@
+Pseudo Code:
+ALGORITHM isTriangle(A[0..N-1])
+// Step 1: Insertion Sort
+for i ← 1 to N-1 do
+    key ← A[i]
+    j ← i - 1
+    while j >= 0 AND A[j] > key do
+        A[j+1] ← A[j]
+        j ← j - 1
+    end while
+    A[j+1] ← key
+end for
+
+// Step 2: Triangle Check
+for i ← 0 to N-3 do
+    if A[i] + A[i+1] > A[i+2] then
+        return 1
+    end if
+end for
+return 0
