@@ -19,8 +19,18 @@ int isTriangle(int A[], int n){
 }
 
 int main(){
-    int A[] = {10, 2, 5, 1, 8, 20};
-    int n = sizeof(A) / sizeof(A[0]);
+    int n;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    int A[n];
+    printf("Enter elements: \n");
+        
+    for (int i = 0; i < n; i++){
+        scanf("%d", &A[i]);
+    }
+    
     if(isTriangle(A, n)){
         return 1;
     } else {
