@@ -1,226 +1,174 @@
-# Triangle Triplet Problem
+# Triangular Triplet Detection
 
-This project solves the **Triangle Triplet Problem** using two different algorithms:
-
-- Non-Recursive Algorithm (Bubble Sort)
-- Recursive Algorithm (Merge Sort)
+A comparative implementation of two algorithmic approaches to solve the **Triangular Triplet Detection** problem. The project evaluates both recursive and non-recursive strategies and analyzes their time complexities.
 
 ---
 
-# Problem Statement
+## Problem Definition
 
-Given an array `A` containing `N` integers, determine whether there exists a triangular triplet.
+Given an array of integers `A` of size `N`, determine whether there exists a triplet `(P, Q, R)` such that:
 
-A triplet `(P, Q, R)` is triangular if:
+- `0 ≤ P < Q < R < N`
+- The triangle inequality holds:
+  - `A[P] + A[Q] > A[R]`
+  - `A[Q] + A[R] > A[P]`
+  - `A[R] + A[P] > A[Q]`
 
-```text
-0 ≤ P < Q < R < N
-```
-
-and:
-
-```text
-A[P] + A[Q] > A[R]
-A[Q] + A[R] > A[P]
-A[R] + A[P] > A[Q]
-```
-
-The function should return:
-
-- `1` if a triangular triplet exists
-- `0` otherwise
+### Output
+- Return `1` if at least one valid triplet exists
+- Otherwise return `0`
 
 ---
 
-# Example
+##  Example
 
-## Input
+### Example 1
+**Input:** [10, 50, 1]
 
-```text
-[10, 2, 5, 1, 8, 20]
-```
-
-## Output
-
-```text
-1
-```
-
-Explanation:
-
-```text
-5 + 8 > 10
-```
-
-Therefore, a triangle can be formed.
+**Output:** 0
 
 ---
 
-# Algorithm 1: Non-Recursive Algorithm
+### Example 2
+**Input:**[10, 2, 5, 1, 8, 20]
+**Output:** 1
 
-## Bubble Sort + Triangle Check
 
-### Idea
-
-1. Sort the array using Bubble Sort
-2. Check every 3 consecutive elements
-3. If:
-
-```text
-A[i] + A[i+1] > A[i+2]
-```
-
-then a triangle exists.
+Valid triplet: `(10, 2, 8)`
 
 ---
 
-## Pseudocode
+##  Approach Overview
 
-```text
-FUNCTION Triangle_Bubble(A)
+This project implements two distinct solutions:
 
-    N ← length(A)
+- **Non-Recursive Approach**
+- **Recursive Approach**
 
-    // Bubble Sort
-    FOR i = 0 TO N-2 DO
-        FOR j = 0 TO N-2-i DO
-
-            IF A[j] > A[j+1] THEN
-                SWAP A[j], A[j+1]
-            END IF
-
-        END FOR
-    END FOR
-
-    // Triangle Check
-    FOR i = 0 TO N-3 DO
-
-        IF A[i] + A[i+1] > A[i+2] THEN
-            RETURN 1
-        END IF
-
-    END FOR
-
-    RETURN 0
-
-END FUNCTION
-```
+Both approaches rely on sorting first, followed by checking valid triplets.
 
 ---
 
-## Analysis
+#  1. Non-Recursive Approach
 
-- Bubble Sort arranges the array in ascending order.
-- After sorting, checking only consecutive elements is enough.
-- If the sum of two smaller elements is greater than the third element, then a triangle exists.
+## Idea
 
----
+- Sort the array using **Insertion Sort**
+- Perform a single linear scan
+- Check only consecutive triplets
 
-## Time Complexity
+## Algorithm
 
-| Operation | Complexity |
-|---|---|
-| Bubble Sort | O(n²) |
-| Triangle Check | O(n) |
-| Total | O(n²) |
-
----
-
-# Algorithm 2: Recursive Algorithm
-
-## Merge Sort + Triangle Check
-
-### Idea
-
-1. Sort the array using Merge Sort (Recursive)
-2. Check every 3 consecutive elements
-3. If:
-
-```text
-A[i] + A[i+1] > A[i+2]
-```
-
-then a triangle exists.
+1. Sort array using Insertion Sort
+2. Iterate from `i = 0` to `N - 3`
+3. Check: A[i] + A[i+1] > A[i+2]
+4. If true → return `1`
+5. If no valid triplet found → return `0`
 
 ---
 
-## Pseudocode
+##  Time Complexity
 
-### Merge Sort
+### 🔹 Sorting (Insertion Sort)
 
-```text
-FUNCTION MergeSort(A, left, right)
+| Case       | Complexity |
+|------------|------------|
+| Best Case  | O(N)       |
+| Average    | O(N²)      |
+| Worst Case | O(N²)      |
 
-    IF left >= right THEN
-        RETURN
-    END IF
+### 🔹 Linear Scan
 
-    mid ← (left + right) / 2
+| Case       | Complexity |
+|------------|------------|
+| Best Case  | O(1)       |
+| Worst Case | O(N)       |
 
-    MergeSort(A, left, mid)
-    MergeSort(A, mid+1, right)
+### 🔹 Total Complexity
 
-    Merge(A, left, mid, right)
-
-END FUNCTION
-```
-
-### Triangle Check
-
-```text
-FUNCTION Triangle_Merge(A)
-
-    MergeSort(A)
-
-    FOR i = 0 TO length(A)-3 DO
-
-        IF A[i] + A[i+1] > A[i+2] THEN
-            RETURN 1
-        END IF
-
-    END FOR
-
-    RETURN 0
-
-END FUNCTION
-```
+| Case       | Complexity |
+|------------|------------|
+| Best Case  | O(N)       |
+| Average    | O(N²)      |
+| Worst Case | O(N²)      |
 
 ---
 
-## Analysis
+#  2. Recursive Approach
 
-- Merge Sort uses recursion and Divide & Conquer.
-- The array is divided into smaller parts, sorted, then merged again.
-- After sorting, the triangle condition is checked using consecutive elements.
+## Idea
 
----
-
-## Time Complexity
-
-| Operation | Complexity |
-|---|---|
-| Merge Sort | O(n log n) |
-| Triangle Check | O(n) |
-| Total | O(n log n) |
+- Sort using **Merge Sort**
+- Recursively process array to check valid triplets
 
 ---
 
-# Comparison Between Algorithms
+## Algorithm
 
-| Feature | Bubble Sort | Merge Sort |
-|---|---|---|
-| Type | Non-Recursive | Recursive |
-| Time Complexity | O(n²) | O(n log n) |
-| Speed | Slower | Faster |
-| Memory Usage | Lower | Higher |
-| Best For | Small arrays | Large arrays |
+### Step 1: Merge Sort
+- Divide array into halves
+- Recursively sort both halves
+- Merge sorted results
+
+### Step 2: Recursive Check
+- Check condition:A[i] + A[i+1] > A[i+2]
+- Move recursively through array
 
 ---
 
-# Conclusion
+##  Time Complexity
 
-- Bubble Sort is simple and easy to understand but slower.
-- Merge Sort is more efficient and performs better with large arrays.
-- Sorting simplifies the process of checking the triangle condition.
+### 🔹 Merge Sort
+
+| Case       | Complexity |
+|------------|------------|
+| Best Case  | O(N log N) |
+| Average    | O(N log N) |
+| Worst Case | O(N log N) |
+
+### 🔹 Recursive Check
+
+| Case       | Complexity |
+|------------|------------|
+| Best Case  | O(1)       |
+| Worst Case | O(N)       |
+
+### 🔹 Total Complexity
+
+| Case       | Complexity |
+|------------|------------|
+| Best Case  | O(N log N) |
+| Average    | O(N log N) |
+| Worst Case | O(N log N) |
+
+---
+
+#  Implementation Notes
+
+## Non-Recursive Version
+- Uses **Insertion Sort**
+- Uses iterative traversal
+- Simpler but less efficient for large inputs
+
+## Recursive Version
+- Uses **Merge Sort**
+- Uses recursive traversal
+- More scalable and efficient
+
+---
+
+#  Key Insight
+
+After sorting the array, it is sufficient to check only consecutive triplets because:
+
+> In a sorted sequence, any valid triangle must be formed by adjacent elements.
+
+---
+
+#  Conclusion
+
+- The **recursive approach** is more efficient and scalable.
+- The **non-recursive approach** is simpler but less optimal for large datasets.
+- Both correctly solve the problem under the triangle inequality constraint.
 
 ---
