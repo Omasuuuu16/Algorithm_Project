@@ -31,10 +31,10 @@ int main(){
         scanf("%d", &A[i]);
     }
     
-    if(isTriangle(A, n)){
-        return 1;
-    } else {
-        return 0;
-    }
+     if (isTriangle(A, n))
+        printf("Output: 1 (Triangle exists)\n");
+    else
+        printf("Output: 0 (No triangle)\n");
+
     return 0;
 }
