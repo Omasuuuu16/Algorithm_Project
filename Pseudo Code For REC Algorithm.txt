@@ -1,0 +1,37 @@
+Pseudo Code:
+ALGORITHM merge(A[0..N-1], p, q, r)
+    i ← p,  j ← q+1,  k ← 0
+    create temp array B
+    while i <= q AND j <= r do
+        if A[i] <= A[j] then
+            B[k] ← A[i],  i ← i+1
+        else
+            B[k] ← A[j],  j ← j+1
+        end if
+        k ← k+1
+    end while
+
+    copy remaining elements of left or right into B
+    copy B back into A[p..r]
+
+ALGORITHM mergeSort(A[0..N-1], p, r)
+    if p < r then
+        q ← FLOOR[(p + r) / 2]
+        mergeSort(A, p, q)
+        mergeSort(A, q+1, r)
+        merge(A, p, q, r)
+    end if
+
+ALGORITHM isTriangleCheck(A[0..N-1], i, N)
+    if i >= N-2 then
+        return 0
+    end if
+
+    if A[i] + A[i+1] > A[i+2] then
+        return 1
+    end if
+    return isTriangleCheck(A, i+1, N)
+
+ALGORITHM isTriangle(A[0..N-1], N)
+    mergeSort(A, 0, N-1)
+    return isTriangleCheck(A, 0, N)
